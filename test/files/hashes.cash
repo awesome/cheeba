@@ -1,0 +1,26 @@
+grocery_list:
+  beer: 
+    1: 
+      model: 24 pack - Coors Lite
+      count: 1
+  meatsez:
+    1: 
+      model: Spam
+      count: 5
+    2: 
+      model: Log of ground beef
+      count: 1
+  cigarettes:
+    1: 
+      model: Carton - Basic Ultra Menthol Box 100
+      count: 2
+  other:
+    1: 
+      model: Economy-Size Pork & Beans 
+      count: 2
+    2:
+      model: Jumbo Miracle Whip
+      count: 1
+    3: 
+      model: White Wonder Bread
+      count: 2

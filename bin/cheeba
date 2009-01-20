@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'optparse'
+require 'pp'
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'cheeba'
+
+module CheebaOpt
+  DESC = Cheeba::Defaults.descriptions
+  def self.command
+    hsh = {}
+    hsh[:opt] = {}
+    ops = nil
+    OptionParser.new do |opts|
+      opts.banner = "Cheeba #{Cheeba::VERSION}"
+      opts.on("-r", "--read FILENAME", String, String, ".cash file to Ruby Hash or Array") do |x|
+        hsh[:cmd] = 1
+        hsh[:arg] = [x]
+      end
+
+      opts.on("-w", "--write FILENAME,FILENAME", Array, "Hash or Array => .cash file") do |x|
+        hsh[:cmd] = 2
+        hsh[:arg] = x
+      end
+
+      opts.on("-d", "--dotfile [HOME]", String, "Create .cheeba dotfile") do |x|
+        x.nil? ? (y = Cheeba.dotfile) : (y = Cheeba.dotfile(x)) 
+        z = "#{File.dirname(y).chomp("/")}/.cheeba"
+        puts "existed: #{z}, moved to: #{y}" if File.basename(y) != ".cheeba"
+        puts "created: #{z}"
+        return
+      end
+
+      opts.on("-v", "--version", "Display verison number") do
+        STDOUT.write("Cheeba #{Cheeba::VERSION}\n\r") 
+        return
+      end
+
+      opts.on("-h", "--help", "Show this message") do
+        puts opts
+        return
+      end
+
+      Cheeba::Defaults.constants.sort.each do |x|
+        next if x == "DOTFILE"
+        opts.on("--[no-]#{x.downcase}", DESC[x.downcase]) do |y|
+          hsh[:opt]["#{x.downcase}".to_sym] = y 
+          puts "use options with --read or --write" && return if hsh[:cmd].nil?
+        end
+      end
+      ops = opts
+    end.parse!
+    puts ops unless hsh.has_key?(:cmd)
+    return unless hsh.has_key?(:cmd)
+    self.run(hsh[:cmd], hsh[:arg], hsh[:opt])
+  end
+  
+  def self.run(cmd, arg, opt)
+    x = Cheeba.read(arg[0], opt)
+    case cmd
+    when 1: pp x 
+    when 2: Cheeba.write(arg[0], arg[1], opt) 
+    end
+  end
+end
+
+CheebaOpt.command
