@@ -1,10 +1,10 @@
 = Cheeba
 
-* FIX (url)
+* http://github.com/awesome/cheeba/tree/master
+* http://wiki.github.com/awesome/cheeba
+* http://awesomelicense.com
 
 == DESCRIPTION:
-
-FIX (describe your package)
 
 Simple data serialization serialization for only the Ruby Programming Language.
 

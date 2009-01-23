@@ -33,7 +33,7 @@ module Cheeba
         "int"            => "conv keys & vals: \"1\" => 1",
         "int_keys"       => "conv keys: \"1\" => 1",
         "int_vals"       => "conv vals: \"1\" => 1",
-        "list"           => "return hash of address & comments",
+        "list"           => "return hash of addresses & comments",
         "strip"          => "strip keys & vals: \" both \" => \"both\"",
         "strip_keys"     => "strip keys: \" key \" => \"key\"",
         "strip_vals"     => "strip vals: \" val \" => \"val\"",
