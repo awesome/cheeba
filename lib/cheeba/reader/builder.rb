@@ -93,6 +93,7 @@ module Cheeba
       def self.to_adr(adr)
         m = adr.map {|x|
           case
+          when x.is_a?(Symbol): "[:#{x}]"
           when x.is_a?(String): "['#{x}']"
           when x.is_a?(Fixnum): "[#{x}]"
           end

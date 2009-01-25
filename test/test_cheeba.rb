@@ -52,6 +52,19 @@ class TestCheeba < MiniTest::Unit::TestCase
        "    3:",
        "      count: 2",
        "      model: White Wonder Bread"]
+    @nested =<<FEKJA
+domain: test
+manifest:
+  manifest_id: 
+    format: String 
+  master_id: 
+    format: String
+  owner_id:
+    format: String
+  log_id:
+    desc: log of all transactions withing the entire tree
+    format: String
+FEKJA
   end
 
   def test_read_hash
@@ -63,6 +76,40 @@ class TestCheeba < MiniTest::Unit::TestCase
     hsh = ":awesome: dude"
     exp = {:awesome => "dude"}
     act = Cheeba.read(hsh, {:symbolize_keys => true})    
+    assert_equal exp, act
+  end
+
+  def test_read_nested_hash_options_symbolize
+    exp = {
+     :domain => :test,
+     :manifest => {
+       :manifest_id => {
+         :format => :String},
+       :master_id => {
+         :format => :String},
+       :owner_id=>{
+         :format => :String},
+       :log_id => {
+         :desc => :"log of all transactions withing the entire tree",
+         :format => :String}}}
+    act = Cheeba.read(@nested, {:symbolize => true})    
+    assert_equal exp, act
+  end
+
+  def test_read_nested_hash_options_symbolize_keys
+    exp = {
+     :domain=>"test",
+     :manifest=>{
+       :manifest_id=>{
+         :format => "String"},
+       :master_id=>{
+         :format => "String"},
+       :owner_id=>{
+         :format => "String"},
+       :log_id=>{
+         :desc=>"log of all transactions withing the entire tree",
+         :format => "String"}}}
+    act = Cheeba.read(@nested, {:symbolize_keys => true})    
     assert_equal exp, act
   end
 
