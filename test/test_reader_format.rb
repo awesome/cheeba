@@ -41,6 +41,92 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     assert !phs2[:opt][:auto_sym_vals]
   end
 
+  def test_format_symbolize_keys_number_in_string
+    opt1 = @opt.merge({:symbolize_keys => true})
+    opt2 = @opt.merge({:int => true, :symbolize_keys => true})
+    phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
+    phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
+    act1 = @format.format(phs1)  
+    act2 = @format.format(phs2)  
+    exp1 = "1".to_sym
+    exp2 = "1".to_sym
+    assert_equal exp1, act1[:key]
+    assert_equal exp2, act2[:key]
+  end
+
+  def test_format_sym_str
+    opt1 = @opt.merge({:sym_str => true})
+    opt2 = @opt.merge({:int => true, :sym_str => true})
+    opt3 = opt1
+    phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
+    phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
+    phs3 = @phs.merge({:key => "awesome", :val => "awesome", :opt => opt3})
+    act1 = @format.format(phs1)  
+    act2 = @format.format(phs2)  
+    act3 = @format.format(phs3)  
+    exp1 = "1"
+    exp2 = 1
+    exp3 = "awesome".to_sym
+    exp4 = "1"
+    exp5 = 1
+    exp6 = "awesome".to_sym
+    assert_equal exp1, act1[:key]
+    assert_equal exp2, act2[:key]
+    assert_equal exp3, act3[:key]
+    assert_equal exp4, act1[:val]
+    assert_equal exp5, act2[:val]
+    assert_equal exp6, act3[:val]
+  end
+
+  def test_format_sym_str_keys
+    opt1 = @opt.merge({:sym_str_keys => true})
+    opt2 = @opt.merge({:int => true, :sym_str_keys => true})
+    opt3 = opt1
+    phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
+    phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
+    phs3 = @phs.merge({:key => "awesome", :val => "awesome", :opt => opt3})
+    act1 = @format.format(phs1)  
+    act2 = @format.format(phs2)  
+    act3 = @format.format(phs3)  
+    exp1 = "1"
+    exp2 = 1
+    exp3 = "awesome".to_sym
+    exp4 = "1"
+    exp5 = 1
+    exp6 = "awesome"
+    assert_equal exp1, act1[:key]
+    assert_equal exp2, act2[:key]
+    assert_equal exp3, act3[:key]
+    assert_equal exp4, act1[:val]
+    assert_equal exp5, act2[:val]
+    assert_equal exp6, act3[:val]
+  end
+
+  def test_format_sym_str_vals
+    opt1 = @opt.merge({:sym_str_vals => true})
+    opt2 = @opt.merge({:int => true, :sym_str_vals => true})
+    opt3 = opt1
+    opt1 = @opt.merge({:sym_str_vals => true})
+    phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
+    phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
+    phs3 = @phs.merge({:key => "awesome", :val => "awesome", :opt => opt3})
+    act1 = @format.format(phs1)  
+    act2 = @format.format(phs2)  
+    act3 = @format.format(phs3)  
+    exp1 = "1"
+    exp2 = 1
+    exp3 = "awesome"
+    exp4 = "1"
+    exp5 = 1
+    exp6 = "awesome".to_sym
+    assert_equal exp1, act1[:key]
+    assert_equal exp2, act2[:key]
+    assert_equal exp3, act3[:key]
+    assert_equal exp4, act1[:val]
+    assert_equal exp5, act2[:val]
+    assert_equal exp6, act3[:val]
+  end
+
   #
   # strip different things
   #

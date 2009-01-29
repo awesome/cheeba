@@ -6,6 +6,9 @@ module Cheeba
     SYMBOLIZE       = false
     SYMBOLIZE_KEYS  = false
     SYMBOLIZE_VALS  = false
+    SYM_STR         = false
+    SYM_STR_KEYS    = false
+    SYM_STR_VALS    = false
     AUTO_SYM        = true
     AUTO_SYM_KEYS   = false
     AUTO_SYM_VALS   = false
@@ -37,6 +40,9 @@ module Cheeba
         "strip"          => "strip keys & vals: \" both \" => \"both\"",
         "strip_keys"     => "strip keys: \" key \" => \"key\"",
         "strip_vals"     => "strip vals: \" val \" => \"val\"",
+        "sym_str"        => "conv str (no int) k & v: \"b\" => :b",
+        "sym_str_keys"   => "conv string keys(no int): \"key\" => :key",
+        "sym_str_vals"   => "conv string vals(no int): \"val\" => :val",
         "symbolize"      => "force conv keys & vals: \"both\" => :both",
         "symbolize_keys" => "force conv keys: \"key\" => :key",
         "symbolize_vals" => "force conv vals: \"val\" => :val",
@@ -50,6 +56,9 @@ module Cheeba
         :symbolize      => SYMBOLIZE, 
         :symbolize_keys => SYMBOLIZE_KEYS, 
         :symbolize_vals => SYMBOLIZE_VALS, 
+        :sym_str        => SYM_STR,
+        :sym_str_keys   => SYM_STR_KEYS,
+        :sym_str_vals   => SYM_STR_VALS, 
         :auto_sym       => AUTO_SYM,
         :auto_sym_keys  => AUTO_SYM_KEYS,
         :auto_sym_vals  => AUTO_SYM_VALS,

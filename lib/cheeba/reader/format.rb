@@ -1,7 +1,7 @@
 module Cheeba
   module Reader
     module Format
-      ##
+      #
       # format datatypes in the parsed hash
       #
       def self.format(phs)
@@ -16,7 +16,7 @@ module Cheeba
         phs
       end
       
-      ##     
+      #     
       # strips keys and values     
       #     
       def self.stripper(phs)
@@ -27,7 +27,7 @@ module Cheeba
         phs[:val] = phs[:val].to_s.strip if psp or psv
       end
          
-      ##     
+      #     
       # adjusts options
       #     
       def self.adjust_options(phs)
@@ -37,7 +37,7 @@ module Cheeba
         end
       end
 
-      ##
+      #
       # true key
       #
       def self.key_to_true(phs)
@@ -52,7 +52,7 @@ module Cheeba
         end
       end
       
-      ##
+      #
       # true val
       #
       def self.val_to_true(phs)
@@ -67,31 +67,35 @@ module Cheeba
         end
       end
       
-      ##
+      #
       # symbolize key
       #
       def self.key_to_sym(phs)
-        x = []
         is_str = (phs[:key] =~ /^\d*$/).nil?
+        x = []
+        x << (phs[:opt][:sym_str] && is_str).is_a?(TrueClass)
+        x << (phs[:opt][:sym_str_keys] && is_str).is_a?(TrueClass)
         x << phs[:opt][:symbolize].is_a?(TrueClass)
         x << (phs[:ask] && phs[:opt][:auto_sym_keys] && is_str).is_a?(TrueClass)
         x << phs[:opt][:symbolize_keys].is_a?(TrueClass)
-        phs[:key] = phs[:key].to_sym if x.any?
+        phs[:key] = phs[:key].to_s.to_sym if x.any?
       end
       
-      ##
+      #
       # symbolize val
       #
       def self.val_to_sym(phs)
-        x = []
         is_str = (phs[:val] =~ /^\d*$/).nil?
+        x = []
+        x << (phs[:opt][:sym_str] && is_str).is_a?(TrueClass)
+        x << (phs[:opt][:sym_str_vals] && is_str).is_a?(TrueClass)
         x << phs[:opt][:symbolize].is_a?(TrueClass)
         x << (phs[:asv] && phs[:opt][:auto_sym_vals] && is_str).is_a?(TrueClass)
         x << phs[:opt][:symbolize_vals].is_a?(TrueClass)
-        phs[:val] = phs[:val].to_sym if x.any? && !phs[:val].to_s.strip.empty?
+        phs[:val] = phs[:val].to_s.to_sym if (x.any? && !phs[:val].to_s.strip.empty?)
       end
 
-      ##
+      #
       # key is parsed as string, so try to_i
       #
       def self.key_to_int(phs)
@@ -101,7 +105,7 @@ module Cheeba
         phs[:key] = self.string_to_int(phs[:key]) if x.any?
       end
 
-      ##
+      #
       # val is parsed as string, so try to_i
       #
       def self.val_to_int(phs)
@@ -111,7 +115,7 @@ module Cheeba
         phs[:val] = self.string_to_int(phs[:val]) if x.any?
       end
       
-      ##
+      #
       # returns int if string is convertable
       #
       def self.string_to_int(string)
