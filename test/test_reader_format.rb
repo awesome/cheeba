@@ -54,6 +54,10 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     assert_equal exp2, act2[:key]
   end
 
+  def test_format_sym_str_nested
+
+  end
+
   def test_format_sym_str
     opt1 = @opt.merge({:sym_str => true})
     opt2 = @opt.merge({:int => true, :sym_str => true})

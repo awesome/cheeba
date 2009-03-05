@@ -119,7 +119,7 @@ module Cheeba
       # returns int if string is convertable
       #
       def self.string_to_int(string)
-        if string.to_i.to_s == string
+        if string.to_i.to_s == string.gsub(/^0+/, "") 
           string.to_i
         else
           string

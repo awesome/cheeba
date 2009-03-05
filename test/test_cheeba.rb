@@ -164,4 +164,22 @@ FEKJA
   def test_read_raise_on_empty_string
     assert_raises(Cheeba::Reader::EmptyInputError) {Cheeba.read("")} 
   end
+  
+  def test_format_sym_str_nested_2009cash
+    file = "#{File.dirname(__FILE__)}/files/2009.cash"
+    raise file.inspect unless File.exist?(file)
+    act = Cheeba.read(file, {:sym_str => true})
+    exp = {:content=>{1=>:"200901.cash", 2=>:"200902.cash"}}
+    assert_equal exp, act
+  end
+  
+  # this is what was happening! because the "01".to_i # => 1 
+  # {:content=>{"01"=>:"200901.cash", "02"=>:"200902.cash"}}
+  def test_format_sym_str_nested
+    file = "#{File.dirname(__FILE__)}/files/nested.cash"
+    raise file.inspect unless File.exist?(file)
+    act = Cheeba.read(file)
+    exp = {1 => "awesome", 2 => "dude", 3 => {1 => "niceone", 2 => "bro", "fekja" => "bacon", 3 => {1 => "beer", 2 => "camaro"}}} 
+    assert_equal exp, act
+  end
 end

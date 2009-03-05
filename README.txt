@@ -3,6 +3,8 @@
 * http://github.com/awesome/cheeba/tree/master
 * http://wiki.github.com/awesome/cheeba
 * http://awesomelicense.com
+* http://seattlerb.org
+* http://awesome.lighthouseapp.com/projects/23787-cheeba/
 
 == DESCRIPTION:
 
