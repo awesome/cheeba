@@ -30,24 +30,24 @@ module Cheeba
       #
       def self.build(hsh, phs)
         add = false
-        upd = nil  
+        upd = nil
         msg = phs[:msg]
         self.doc_new(hsh) if hsh.empty? && msg != "doc"
         val = phs[:val]
         lst = hsh[:lst]
 
-        unless [:com, :mal, :bla].include?(msg) 
+        unless [:com, :mal, :bla].include?(msg)
           cur = self.cur(hsh)
           key = phs[:key]
           spc = phs[:spc]
           idt = phs[:opt][:indent]
           adr = hsh[:adr]
-          idx = self.index(spc, idt) 
+          idx = self.index(spc, idt)
           upd = self.update(adr, idx)
           las = self.adr_obj(hsh, hsh[:adr])
           add = true
         end
-        
+
         case msg
         when :dcs: self.doc_start(hsh)
         when :dct: self.doc_term(hsh)
@@ -60,18 +60,18 @@ module Cheeba
             self.adr_obj_to_array(hsh, hsh[:adr])
             las = self.adr_obj(hsh, hsh[:adr])
           end
-          self.arr_parse(las, adr, val, upd) 
+          self.arr_parse(las, adr, val, upd)
         when :com: self.comment(lst, val)
         when :mal: self.malformed(lst, val)
         end
-        
+
         self.add_to_list(lst, adr) if add
       end
 
       ##
       # sub-parses array message, and logic from update-method
       #
-      def self.arr_parse(las, adr, val, upd) 
+      def self.arr_parse(las, adr, val, upd)
         case upd
         when "eq": self.array_val(las, val)
         when "lt": self.array_val(las, val)
@@ -79,7 +79,7 @@ module Cheeba
         else; raise "error"
         end
       end
-      
+
       ##
       # current hash, returns array of "doc"
       #
@@ -87,9 +87,9 @@ module Cheeba
         hsh[hsh.length - 2]
       end
 
-      ## 
+      ##
       # address array to string usable in eval on root node
-      # 
+      #
       def self.to_adr(adr)
         m = adr.map {|x|
           case
@@ -101,9 +101,9 @@ module Cheeba
         m.to_s
       end
 
-      ## 
+      ##
       # returns the actual object at an address in tree
-      # 
+      #
       def self.adr_obj(hsh, adr)
         m = self.to_adr(adr)
         eval("hsh#{m.to_s}")
@@ -132,7 +132,7 @@ module Cheeba
         if idx < len
           # remove indices after current index
           adr.replace(adr[0..idx])
-          ret = "lt" 
+          ret = "lt"
         elsif idx == len
           ret = "eq"
         elsif idx > len
@@ -140,9 +140,9 @@ module Cheeba
         end
         ret
       end
-      
+
       ##
-      # create keypair for new doc 
+      # create keypair for new doc
       #
       def self.doc_new(hsh)
         hsh[:lst] ||= {}
@@ -155,26 +155,26 @@ module Cheeba
 
       ##
       # new array in tree, provides logic for last modified object
-      #   
+      #
       def self.array_new(las, adr, val)
         case
         when las.is_a?(Array) && las.empty?
           x = [val]
-          las = x 
+          las = x
           adr << las.rindex(x)
         when las.is_a?(Array) && las.last.is_a?(String) && las.last.empty?
           x = [val]
           las[-1] = [val]
           adr << las.rindex(x)
-        when las.is_a?(Array) 
+        when las.is_a?(Array)
           x = [val]
-          las << x 
+          las << x
           adr << las.rindex(x)
         end
       end
 
       ##
-      # start document 
+      # start document
       #
       def self.doc_start(hsh)
         self.doc_new(hsh)
@@ -213,7 +213,7 @@ module Cheeba
           las << x
           adr << las.rindex(x)
         end
-        adr << key          
+        adr << key
       end
 
       ##
@@ -228,13 +228,13 @@ module Cheeba
           las[key] = val
         end
       end
-      
+
       ##
       # list stores hsh addresses of lines, comments, etc.
       #
       def self.add_to_list(lst, adr)
         case adr.class.to_s
-        when "String": x = adr 
+        when "String": x = adr
         when "Array":  x = adr.join(",")
         end
         lst[lst.length + 1] = x
@@ -246,7 +246,7 @@ module Cheeba
       def self.blank(lst)
         self.add_to_list(lst, "#BLANK")
       end
-      
+
       ##
       # add comment to list
       #

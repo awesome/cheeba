@@ -76,7 +76,7 @@ class TestWriterBuilder < MiniTest::Unit::TestCase
 
   def test_hash_to_array
     act = []
-    hsh = {1 => 1, 2 => "awesome", "3" => "awesome"} 
+    hsh = {1 => 1, 2 => "awesome", "3" => "awesome"}
     exp = ["1: 1", "2: awesome", "3: awesome"]
     @builder.hash_to_array(act, hsh, @opt, "  ")
     assert_equal exp, act
@@ -93,7 +93,7 @@ class TestWriterBuilder < MiniTest::Unit::TestCase
 
   def test_hash_to_array_nested
     act = []
-    hsh = {1 => 1, 2 => "awesome", "3" => {1 => 1, 2 => 2, 3 => 3}} 
+    hsh = {1 => 1, 2 => "awesome", "3" => {1 => 1, 2 => 2, 3 => 3}}
     exp = ["1: 1", "2: awesome", "3:", "  1: 1", "  2: 2", "  3: 3"]
     @builder.hash_to_array(act, hsh, @opt, "  ")
     assert_equal exp, act
@@ -126,23 +126,23 @@ class TestWriterBuilder < MiniTest::Unit::TestCase
 
   def test_hash_to_lines
     act = []
-    hsh = {1 => 1, 2 => "awesome", "3" => "awesome"} 
+    hsh = {1 => 1, 2 => "awesome", "3" => "awesome"}
     exp = ["1: 1", "2: awesome", "3: awesome"]
     @builder.hash_to_lines(act, hsh, hsh.keys, @opt, "  ")
     assert_equal exp, act
   end
-  
+
   def test_hash_to_lines_nested_hash
     act = []
-    hsh = {1 => 1, 2 => "awesome", "3" => {1 => 1, 2 => 2}} 
+    hsh = {1 => 1, 2 => "awesome", "3" => {1 => 1, 2 => 2}}
     exp = ["1: 1", "2: awesome", "3:", "  1: 1", "  2: 2"]
     @builder.hash_to_lines(act, hsh, hsh.keys, @opt, "  ")
     assert_equal exp, act
   end
-  
+
   def test_hash_to_lines_nested_array
     act = []
-    hsh = {1 => 1, 2 => "awesome", "3" => [1, 2, 3]} 
+    hsh = {1 => 1, 2 => "awesome", "3" => [1, 2, 3]}
     exp = ["1: 1", "2: awesome", "3:", "  - 1", "  - 2", "  - 3"]
     @builder.hash_to_lines(act, hsh, hsh.keys, @opt, "  ")
     assert_equal exp, act

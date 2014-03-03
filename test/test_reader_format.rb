@@ -12,11 +12,11 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     @format = Cheeba::Reader::Format
     @opt = {}
     Cheeba::Defaults.options.each_key {|k| @opt[k] = false}
-    @phs    = { :msg => nil, 
-                :spc => nil, 
-                :key => nil, 
-                :val => nil, 
-                :ask => nil, 
+    @phs    = { :msg => nil,
+                :spc => nil,
+                :key => nil,
+                :val => nil,
+                :ask => nil,
                 :asv => nil,
                 :opt => @opt}
   end
@@ -26,10 +26,10 @@ class TestReaderFormat < MiniTest::Unit::TestCase
   #
   def test_format_basic
     phs = @phs.merge({:key => "1", :val => "1", :opt => @opt})
-    act = @format.format(phs) 
+    act = @format.format(phs)
     assert_equal Hash, act.class
   end
-  
+
   def test_adjust_options
     phs1 = {:opt => {:auto_sym => true}}
     phs2 = {:opt => {:auto_sym => false}}
@@ -46,8 +46,8 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     opt2 = @opt.merge({:int => true, :symbolize_keys => true})
     phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
     phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
-    act1 = @format.format(phs1)  
-    act2 = @format.format(phs2)  
+    act1 = @format.format(phs1)
+    act2 = @format.format(phs2)
     exp1 = "1".to_sym
     exp2 = "1".to_sym
     assert_equal exp1, act1[:key]
@@ -65,9 +65,9 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
     phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
     phs3 = @phs.merge({:key => "awesome", :val => "awesome", :opt => opt3})
-    act1 = @format.format(phs1)  
-    act2 = @format.format(phs2)  
-    act3 = @format.format(phs3)  
+    act1 = @format.format(phs1)
+    act2 = @format.format(phs2)
+    act3 = @format.format(phs3)
     exp1 = "1"
     exp2 = 1
     exp3 = "awesome".to_sym
@@ -89,9 +89,9 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
     phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
     phs3 = @phs.merge({:key => "awesome", :val => "awesome", :opt => opt3})
-    act1 = @format.format(phs1)  
-    act2 = @format.format(phs2)  
-    act3 = @format.format(phs3)  
+    act1 = @format.format(phs1)
+    act2 = @format.format(phs2)
+    act3 = @format.format(phs3)
     exp1 = "1"
     exp2 = 1
     exp3 = "awesome".to_sym
@@ -114,9 +114,9 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     phs1 = @phs.merge({:key => "1", :val => "1", :opt => opt1})
     phs2 = @phs.merge({:key => "1", :val => "1", :opt => opt2})
     phs3 = @phs.merge({:key => "awesome", :val => "awesome", :opt => opt3})
-    act1 = @format.format(phs1)  
-    act2 = @format.format(phs2)  
-    act3 = @format.format(phs3)  
+    act1 = @format.format(phs1)
+    act2 = @format.format(phs2)
+    act3 = @format.format(phs3)
     exp1 = "1"
     exp2 = 1
     exp3 = "awesome"
@@ -138,7 +138,7 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     key = "    awesome   "
     val = "    awesome   "
     opt1 = {:strip => true}
-    opt2 = @opt.clone 
+    opt2 = @opt.clone
     act_phs1 = @phs.merge({:key => key, :val => val, :opt => opt1})
     act_phs2 = @phs.merge({:key => key, :val => val, :opt => opt2})
     exp_key1 = "awesome"
@@ -147,38 +147,38 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     exp_val2 = val
     @format.format(act_phs1)
     @format.format(act_phs2)
-    assert_equal exp_key1, act_phs1[:key] 
-    assert_equal exp_val1, act_phs1[:val] 
-    assert_equal exp_key2, act_phs2[:key] 
-    assert_equal exp_val2, act_phs2[:val] 
+    assert_equal exp_key1, act_phs1[:key]
+    assert_equal exp_val1, act_phs1[:val]
+    assert_equal exp_key2, act_phs2[:key]
+    assert_equal exp_val2, act_phs2[:val]
   end
 
   def test_strip_keys
     key = "    awesome   "
     opt1 = {:strip_keys => true}
-    opt2 = @opt.clone 
+    opt2 = @opt.clone
     act_phs1 = @phs.merge({:key => key, :opt => opt1})
     act_phs2 = @phs.merge({:key => key, :opt => opt2})
     exp_key1 = "awesome"
     exp_key2 = key
     @format.format(act_phs1)
     @format.format(act_phs2)
-    assert_equal exp_key1, act_phs1[:key] 
-    assert_equal exp_key2, act_phs2[:key] 
+    assert_equal exp_key1, act_phs1[:key]
+    assert_equal exp_key2, act_phs2[:key]
   end
 
   def test_strip_vals
     val = "    awesome   "
     opt1 = {:strip_vals => true}
-    opt2 = @opt.clone 
+    opt2 = @opt.clone
     act_phs1 = @phs.merge({:val => val, :opt => opt1})
     act_phs2 = @phs.merge({:val => val, :opt => opt2})
     exp_val1 = "awesome"
     exp_val2 = val
     @format.format(act_phs1)
     @format.format(act_phs2)
-    assert_equal exp_val1, act_phs1[:val] 
-    assert_equal exp_val2, act_phs2[:val] 
+    assert_equal exp_val1, act_phs1[:val]
+    assert_equal exp_val2, act_phs2[:val]
   end
 
   #
@@ -261,7 +261,7 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     assert_equal exp_key2, act_phs3[:key]
     assert_equal exp_key2, act_phs4[:key]
   end
-  
+
   def test_key_to_sym_number_in_string
     exp_key1 = "411"
     exp_key2 = "411".to_sym
@@ -282,7 +282,7 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     assert_equal exp_key2, act_phs3[:key]
     assert_equal exp_key2, act_phs4[:key]
   end
-  
+
   #
   # symbolize val
   #
@@ -306,7 +306,7 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     assert_equal exp_val2, act_phs3[:val]
     assert_equal exp_val2, act_phs4[:val]
   end
-  
+
   def test_val_to_sym_number_in_string
     exp_val1 = "411"
     exp_val2 = "411".to_sym
@@ -385,7 +385,7 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     assert_equal exp_val3, act_phs4[:val]
     assert_equal exp_val3, act_phs5[:val]
   end
-  
+
   #
   # returns Int if String is convertable
   #
@@ -398,9 +398,9 @@ class TestReaderFormat < MiniTest::Unit::TestCase
     exp2 = "awesome"
     exp3 = "123awesome"
     exp4 = 123
-    act1 = @format.string_to_int(str1) 
-    act2 = @format.string_to_int(str2) 
-    act3 = @format.string_to_int(str3) 
-    act4 = @format.string_to_int(str4) 
+    act1 = @format.string_to_int(str1)
+    act2 = @format.string_to_int(str2)
+    act3 = @format.string_to_int(str3)
+    act4 = @format.string_to_int(str4)
   end
 end

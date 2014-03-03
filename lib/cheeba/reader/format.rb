@@ -15,21 +15,21 @@ module Cheeba
         self.val_to_true(phs)
         phs
       end
-      
-      #     
-      # strips keys and values     
-      #     
+
+      #
+      # strips keys and values
+      #
       def self.stripper(phs)
         psp = phs[:opt][:strip]
         psk = phs[:opt][:strip_keys]
         psv = phs[:opt][:strip_vals]
-        phs[:key] = phs[:key].to_s.strip if psp or psk 
+        phs[:key] = phs[:key].to_s.strip if psp or psk
         phs[:val] = phs[:val].to_s.strip if psp or psv
       end
-         
-      #     
+
+      #
       # adjusts options
-      #     
+      #
       def self.adjust_options(phs)
         if phs[:opt][:auto_sym]
           phs[:opt][:auto_sym_keys] = true
@@ -51,7 +51,7 @@ module Cheeba
           end
         end
       end
-      
+
       #
       # true val
       #
@@ -66,7 +66,7 @@ module Cheeba
           end
         end
       end
-      
+
       #
       # symbolize key
       #
@@ -80,7 +80,7 @@ module Cheeba
         x << phs[:opt][:symbolize_keys].is_a?(TrueClass)
         phs[:key] = phs[:key].to_s.to_sym if x.any?
       end
-      
+
       #
       # symbolize val
       #
@@ -114,16 +114,13 @@ module Cheeba
         x << phs[:opt][:int_vals].is_a?(TrueClass)
         phs[:val] = self.string_to_int(phs[:val]) if x.any?
       end
-      
+
       #
       # returns int if string is convertable
       #
       def self.string_to_int(string)
-        if string.to_i.to_s == string.gsub(/^0+/, "") 
-          string.to_i
-        else
-          string
-        end
+        return unless string.is_a?(String)
+        string =~ /\A\d+\z/ ? string.to_i : string
       end
     end
   end
