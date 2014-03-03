@@ -119,7 +119,7 @@ module Cheeba
       # returns int if string is convertable
       #
       def self.string_to_int(string)
-        return unless string.is_a?(String)
+        return string unless string.is_a?(String)
         string =~ /\A\d+\z/ ? string.to_i : string
       end
     end
