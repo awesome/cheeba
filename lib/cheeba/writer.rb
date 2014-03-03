@@ -31,7 +31,7 @@ module Cheeba
       end 
       filename
     end
-    
+
     #
     # write a cheeba dotfile to home dir
     #

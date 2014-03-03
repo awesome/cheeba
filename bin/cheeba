@@ -25,7 +25,7 @@ module CheebaOpt
       end
 
       opts.on("-d", "--dotfile [HOME]", String, "Create .cheeba dotfile") do |x|
-        x.nil? ? (y = Cheeba.dotfile) : (y = Cheeba.dotfile(x)) 
+        x.nil? ? (y = Cheeba.dotfile) : (y = Cheeba.dotfile(x))
         z = "#{File.dirname(y).chomp("/")}/.cheeba"
         puts "existed: #{z}, moved to: #{y}" if File.basename(y) != ".cheeba"
         puts "created: #{z}"
@@ -33,7 +33,7 @@ module CheebaOpt
       end
 
       opts.on("-v", "--version", "Display verison number") do
-        STDOUT.write("Cheeba #{Cheeba::VERSION}\n\r") 
+        STDOUT.write("Cheeba #{Cheeba::VERSION}\n\r")
         return
       end
 
@@ -45,7 +45,7 @@ module CheebaOpt
       Cheeba::Defaults.constants.sort.each do |x|
         next if x == "DOTFILE"
         opts.on("--[no-]#{x.downcase}", DESC[x.downcase]) do |y|
-          hsh[:opt]["#{x.downcase}".to_sym] = y 
+          hsh[:opt]["#{x.downcase}".to_sym] = y
           puts "use options with --read or --write" && return if hsh[:cmd].nil?
         end
       end
@@ -55,12 +55,12 @@ module CheebaOpt
     return unless hsh.has_key?(:cmd)
     self.run(hsh[:cmd], hsh[:arg], hsh[:opt])
   end
-  
+
   def self.run(cmd, arg, opt)
     x = Cheeba.read(arg[0], opt)
     case cmd
-    when 1: pp x 
-    when 2: Cheeba.write(arg[0], arg[1], opt) 
+    when 1: pp x
+    when 2: Cheeba.write(arg[0], arg[1], opt)
     end
   end
 end

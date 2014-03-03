@@ -5,26 +5,26 @@ module Cheeba
         spc = (opt[:space] * opt[:indent])
         case
         when inp.is_a?(Hash):   self.hash_to_array(arr, inp, opt, spc)
-        when inp.is_a?(Array):  self.array_to_lines(arr, inp, opt, spc) 
-        when inp.is_a?(String): self.string_to_array(arr, inp, opt, spc) 
+        when inp.is_a?(Array):  self.array_to_lines(arr, inp, opt, spc)
+        when inp.is_a?(String): self.string_to_array(arr, inp, opt, spc)
         end
         arr
       end
-      
+
       def self.sym_to_str(x, y = nil)
         a = x.is_a?(Symbol) ? x.inspect : x
         b = (!y.nil? && y.is_a?(Symbol)) ? y.inspect : y
         [a, b]
       end
-      
+
       def self.string_to_array(arr, inp, opt, spc)
-        self.array_to_lines(arr, inp.split(opt[:line_end]), opt, spc) 
+        self.array_to_lines(arr, inp.split(opt[:line_end]), opt, spc)
       end
 
       def self.hash_to_array(arr, inp, opt, spc)
         inp.each do |key,val|
           case
-          when val.is_a?(Hash)  
+          when val.is_a?(Hash)
             key = self.sym_to_str(key)
             arr << opt[:doc_start] if opt[:docs]
             arr << "#{key}#{opt[:hash]}" unless opt[:docs]
@@ -47,7 +47,7 @@ module Cheeba
         ist = spc * idt
         ind = opt[:array]
         until val.empty? do
-          x = val.shift 
+          x = val.shift
           case
           when x.is_a?(Hash)
             arr << "#{ist}#{ind}"
@@ -71,7 +71,7 @@ module Cheeba
         idt = 0 if idt.nil?
         while !kys.empty?
           ist = spc * idt
-          key = kys.shift 
+          key = kys.shift
           val = hsh[key]
           ind = opt[:hash]
           case

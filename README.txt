@@ -6,15 +6,45 @@
 
 == DESCRIPTION:
 
-Simple data serialization serialization for only the Ruby Programming Language.
+Simple data serialization like YAML, but in pure Ruby and without dependencies.
 
 == FEATURES/PROBLEMS:
 
-* 
+* hash insert order is fucked--tests don't pass
+* considered using orderedhash gem to solve hash insert order for ruby 1.8.7
 
 == SYNOPSIS:
 
-*  FIX (code sample of usage)
+$ cheeba
+Cheeba 1.1.0
+    -r, --read FILENAME              .cash file to Ruby Hash or Array
+    -w, --write FILENAME,FILENAME    Hash or Array => .cash file
+    -d, --dotfile [HOME]             Create .cheeba dotfile
+    -v, --version                    Display verison number
+    -h, --help                       Show this message
+        --[no-]auto_sym              conv keys & vals: ":both" => :both
+        --[no-]auto_sym_keys         conv keys: ":key" => :key
+        --[no-]auto_sym_vals         conv vals: ":val" => :val
+        --[no-]auto_true             conv keys & vals: "true" => true
+        --[no-]auto_true_keys        conv keys: "true" => true
+        --[no-]auto_true_vals        conv vals: "true" => true
+        --[no-]docs                  doc separator first level hash nodes
+        --[no-]dot                   use dotfile if it exists
+        --[no-]int                   conv keys & vals: "1" => 1
+        --[no-]int_keys              conv keys: "1" => 1
+        --[no-]int_vals              conv vals: "1" => 1
+        --[no-]list                  return hash of addresses & comments
+        --[no-]strip                 strip keys & vals: " both " => "both"
+        --[no-]strip_keys            strip keys: " key " => "key"
+        --[no-]strip_vals            strip vals: " val " => "val"
+        --[no-]symbolize             force conv keys & vals: "both" => :both
+        --[no-]symbolize_keys        force conv keys: "key" => :key
+        --[no-]symbolize_vals        force conv vals: "val" => :val
+        --[no-]sym_str               conv str (no int) k & v: "b" => :b
+        --[no-]sym_str_keys          conv string keys(no int): "key" => :key
+        --[no-]sym_str_vals          conv string vals(no int): "val" => :val
+        --[no-]yaml                  write files with YAML type array syntax
+
 
 == REQUIREMENTS:
 
@@ -23,9 +53,10 @@ Ruby 1.8.7
 * https://www.ruby-lang.org/en/news/2013/06/30/we-retire-1-8-7/
 
 Gems
+* rake 0.8.7 https://rubygems.org/gems/rake
 * rubygems 1.2.0 - 1.6.2 https://rubygems.org/gems/rubygems-update
 * minitest 1.3.1 - 1.7.2 https://rubygems.org/gems/hoe
-* hoe 1.8.2 - 
+* hoe 1.8.2 - https://rubygems.org/gems/hoe 
 
 == INSTALL:
 
