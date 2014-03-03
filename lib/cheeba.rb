@@ -1,4 +1,3 @@
-require 'orderedhash'
 require 'cheeba/version'
 require 'cheeba/reader'
 require 'cheeba/writer'
