@@ -7,7 +7,7 @@ gem 'hoe', '1.8.2'
 gem 'minitest', '>=1.3.1', '<=1.7.2'
 
 require 'rubygems'
-# raise "cheeba requires Gem version 1.6.2" unless Gem::VERSION == "1.6.2"
+raise "cheeba requires Gem version 1.6.2" unless Gem::VERSION == "1.6.2"
 require 'rake'
 require 'hoe'
 require 'minitest/unit'
